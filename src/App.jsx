@@ -27,7 +27,7 @@ function App() {
                   <Route path='/ContactUs' element={<ContactUs />}/>
                   <Route path='/AddToCart' element={<AddToCart />}/>
                   <Route path='/AddToFavorite' element={<AddToFavorite />}/>
-                  <Route path='/ProductsDetail' element={<ProductsDetail />}/>
+                  <Route path='/ProductsDetail/:id' element={<ProductsDetail />}/>
             </Routes>
     </>
   )
