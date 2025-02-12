@@ -2,8 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { CiHeart, CiShoppingCart, CiSearch, CiMenuBurger} from "react-icons/ci";
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { toggleCart } from '../Slices/CartSlice';
 
 const Navbar = () => {
+
+    const { cartProducts } = useSelector((state) => state.cart);
 
     // Taking Array of Objects for Navigation of pages
 
@@ -50,7 +54,8 @@ const Navbar = () => {
                         <ul className='flex justify-center items-center gap-3 z-10 '>
                                     <li className='text-[26px]'><CiSearch /></li>
                                     <li className='text-[26px]'><Link to={"/AddToFavorite"}><CiHeart /></Link></li>
-                                    <li className='text-[26px]'><Link to={"/AddToCart"}><CiShoppingCart /></Link></li>
+                                    <li className='text-[26px]'><Link to={"/AddToCart"}>
+                                    <span className='bg-black text-white w-[20px] h-[20px] rounded-full absolute text-[14px] text-center mt-[-5px] ml-[12px]'>{cartProducts.length}</span><CiShoppingCart /></Link></li>
 
                                     {/* Burger Icon */}
                                     <li className='text-[24px] lg:hidden hover:shadow-md '
