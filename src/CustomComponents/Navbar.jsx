@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 import { CiHeart, CiShoppingCart, CiSearch, CiMenuBurger} from "react-icons/ci";
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { toggleCart } from '../Slices/CartSlice';
+import { addToCart } from '../Slices/CartSlice';
+import { toggleFavorite } from '../Slices/FavoriteSlice';
 
 const Navbar = () => {
 
     const { cartProducts } = useSelector((state) => state.cart);
+    const { favoriteProducts } = useSelector((state) => state.favorite);
 
     // Taking Array of Objects for Navigation of pages
 
@@ -53,7 +55,8 @@ const Navbar = () => {
 
                         <ul className='flex justify-center items-center gap-3 z-10 '>
                                     <li className='text-[26px]'><CiSearch /></li>
-                                    <li className='text-[26px]'><Link to={"/AddToFavorite"}><CiHeart /></Link></li>
+                                    <li className='text-[26px]'><Link to={"/AddToFavorite"}>
+                                    <span className='bg-black text-white w-[20px] h-[20px] rounded-full absolute text-[14px] text-center mt-[-5px] ml-[13px]'>{favoriteProducts.length}</span><CiHeart /></Link></li>
                                     <li className='text-[26px]'><Link to={"/AddToCart"}>
                                     <span className='bg-black text-white w-[20px] h-[20px] rounded-full absolute text-[14px] text-center mt-[-5px] ml-[12px]'>{cartProducts.length}</span><CiShoppingCart /></Link></li>
 
@@ -62,9 +65,9 @@ const Navbar = () => {
                                     onClick={() => setIsOpen(!isOpen)}><CiMenuBurger /></li>
 
                                     <li className=' hidden lg:block bg-black px-[15px] py-[6px] text-white rounded-md font-sans font-semibold cursor-pointer
-                                    hover:bg-gray-700'><button>SignUp</button></li>
+                                    hover:bg-gray-700'><Link to={"/SignUp"}><button>SignUp</button></Link></li>
                                     <li className=' hidden lg:block bg-black px-[15px] py-[6px] text-white rounded-md font-sans font-semibold cursor-pointer
-                                    hover:bg-gray-700'><button>Login</button></li>
+                                    hover:bg-gray-700'><Link to={"/Login"}><button>Login</button></Link></li>
                         </ul>
 
                         {/* Mobile Menue */}

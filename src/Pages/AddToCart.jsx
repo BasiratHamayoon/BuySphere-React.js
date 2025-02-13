@@ -32,7 +32,7 @@ const AddToCart = () => {
             <tr key={index} className="">
               <td className="px-4 py-2">
                 <img 
-                  src={product?.images[0]} 
+                  src={product?.image} 
                   alt={product?.title} 
                   className="lg:w-[100px] lg:h-[100px] object-cover mx-auto md:w-[70px] md:h-[70px] w-[40px] h-[40px] rounded-md"
                 />

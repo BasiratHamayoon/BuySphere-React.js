@@ -10,12 +10,17 @@ import Navbar from './CustomComponents/Navbar'
 import AddToCart from './Pages/AddToCart'
 import AddToFavorite from './Pages/AddToFavorite'
 import ProductsDetail from './Pages/ProductsDetail'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import SignUp from './Pages/SignUp'
+import Login from './Pages/Login'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <> 
+             <ToastContainer position="top-right" autoClose={2000} />
             {/* Navbar */}
             <Navbar />
 
@@ -28,6 +33,8 @@ function App() {
                   <Route path='/AddToCart' element={<AddToCart />}/>
                   <Route path='/AddToFavorite' element={<AddToFavorite />}/>
                   <Route path='/ProductsDetail/:id' element={<ProductsDetail />}/>
+                  <Route path='/Signup' element={<SignUp />} />
+                  <Route path='/Login' element={<Login />} />
             </Routes>
     </>
   )
