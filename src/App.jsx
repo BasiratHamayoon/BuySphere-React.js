@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SignUp from './Pages/SignUp'
 import Login from './Pages/Login'
+import Footer from './CustomComponents/Footer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -36,7 +37,10 @@ function App() {
             </Routes>
 
             {/* Footer */}
-            <ContactUs />
+            <div id='ContactUS'>
+              <Footer />
+            </div>
+            
     </>
   )
 }

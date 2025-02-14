@@ -19,7 +19,7 @@ const ProductsDetail = () => {
   console.log(product)
   return (
     <div className='w-full flex justify-center items-center'>
-       <div className='lg:w-[80%] w-[95%] grid lg:grid-cols-2  py-[50px] h-[400px]'>
+       <div className='lg:w-[80%] w-[95%] grid lg:grid-cols-2  py-[50px]'>
              <div className=''>
               <img src={product?.image} alt="" className='w-[350px] h-[400px]'/>
              </div>
