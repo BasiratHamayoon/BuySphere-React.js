@@ -1,21 +1,21 @@
 import React from 'react';
-import sideImage from "../assets/HeroSection-images/simg.png"
-
+import image from "../assets/HeroSection-images/image.png"
 const HeroSection = () => {
   return (
-    <div className='w-[95%] m-auto bg-pink-300 grid lg:grid-cols-2 grid-cols-1 lg:h-[80vh] gap-6 justify-center items-center lg:px-[200px]'>
-            <div className='flex flex-col justify-items-start items-start mt-[50px]'>
-                    <h1 className='text-[25px] font-sans'>Classic Exclusive</h1>
-                    <h1 className='text-[30px] font-bold font-sans'>Women's Collection</h1>
-                    <h2>UPTO 40% OFF</h2>
-                    <button className='bg-black text-white font-sans
-                    font-semibold px-[10px] py-[5px] rounded-md shadow-md shadow-black
-                    mt-[20px] border-0 lg:w-[35%] w-[50%]'>Shop Now</button>
-            </div>
-            <div className='flex justify-center items-center'>
-                <img src={sideImage} alt="sideImage"
-                className=' ' />
-            </div>
+
+    <div>
+        <div className='flex justify-center items-center flex-wrap gap-14 bg-pink-100 py-[50px] h-[70vh]'>
+          <div className='flex flex-col'>
+            <h1 className='font-semibold text-[22px] font-sans'>CLASSIC EXCLUSIVE</h1>
+            <h1 className='font-serif text-[28px] font-bold'>Womens Collection </h1>
+            <h2 className='font-sans text-[20px]'>UPTO 50% OFF</h2>
+            <button className='bg-black text-white py-2 rounded-md shadow-md
+            shadow-black w-[50%] my-2 hover:bg-gray-500 border border-white'>Shop Now</button>
+          </div>
+          <div className='flex justify-center items-center pl-[50px]'>
+            <img src={image} className=''/>
+          </div>
+        </div>
     </div>
   );
 }

@@ -5,11 +5,32 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { addToCart } from '../Slices/CartSlice';
 import { toggleFavorite } from '../Slices/FavoriteSlice';
+import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
+import { getAuth, signOut } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
+import app from '../../firebaseConfig'
 
 const Navbar = () => {
 
     const { cartProducts } = useSelector((state) => state.cart);
     const { favoriteProducts } = useSelector((state) => state.favorite);
+
+    //Logout 
+    const auth = getAuth(app)
+    const navigate = useNavigate();
+    const [logoutVisible, setLogoutVisible] = useState(false);
+    const toggleLogoutDropDown = () => {
+        setLogoutVisible(!logoutVisible);
+    }
+    const handleLogout = async () => {
+        try{
+            await signOut(auth);
+            alert("SignOut Successfully!")
+            navigate("/");
+        } catch(error) {
+            console.error(error.message);
+        }
+    }
 
     // Taking Array of Objects for Navigation of pages
 
@@ -19,9 +40,6 @@ const Navbar = () => {
         },
         {
             id: 2, title: "Products", url: '/Products',    
-        },
-        {
-            id: 3, title: "Catagories", url: '/Catagories',
         },
         {   
             id: 4, title: "About", url: '/AboutUs',
@@ -54,7 +72,6 @@ const Navbar = () => {
                         {/* Side Items */}
 
                         <ul className='flex justify-center items-center gap-3 z-10 '>
-                                    <li className='text-[26px]'><CiSearch /></li>
                                     <li className='text-[26px]'><Link to={"/AddToFavorite"}>
                                     <span className='bg-black text-white w-[20px] h-[20px] rounded-full absolute text-[14px] text-center mt-[-5px] ml-[13px]'>{favoriteProducts.length}</span><CiHeart /></Link></li>
                                     <li className='text-[26px]'><Link to={"/AddToCart"}>
@@ -68,6 +85,25 @@ const Navbar = () => {
                                     hover:bg-gray-700'><Link to={"/SignUp"}><button>SignUp</button></Link></li>
                                     <li className=' hidden lg:block bg-black px-[15px] py-[6px] text-white rounded-md font-sans font-semibold cursor-pointer
                                     hover:bg-gray-700'><Link to={"/Login"}><button>Login</button></Link></li>
+
+                                    {/* Logout */}
+                                    <li>
+                                        <span onClick={toggleLogoutDropDown} className='cursor-pointer'><PiDotsThreeOutlineVerticalFill /></span>
+
+                                        {logoutVisible && (
+                                            
+                                                <li className='absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md'>
+                                                    <button
+                                                        onClick={handleLogout}
+                                                        className="w-full px-4 py-2 text-gray-700 hover:bg-gray-100
+                                                        text-center"
+                                                    >
+                                                        Logout
+                                                    </button>  
+                                                </li>
+                                            
+                                        )}
+                                    </li>
                         </ul>
 
                         {/* Mobile Menue */}
@@ -87,10 +123,10 @@ const Navbar = () => {
                             ))}
                                                  <li className='bg-black text-white px-[20px] py-[6px]
                                                  text-center rounded-md font-sans font-semibold
-                                                 hover:bg-gray-600 '><button>SignUp</button></li>
+                                                 hover:bg-gray-600 '><Link to={"/SignUp"}><button>SignUp</button></Link></li>
                                                  <li className='bg-black text-white px-[20px] py-[6px]
                                                  text-center rounded-md font-sans font-semibold
-                                                 hover:bg-gray-600'><button>Login</button></li>
+                                                 hover:bg-gray-600'><Link to={"/Login"}><button>Login</button></Link></li>
 
                                     </ul>
                         </div>

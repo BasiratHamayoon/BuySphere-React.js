@@ -1,23 +1,51 @@
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import app from "../../firebaseConfig";
 
 const SignUp = () => {
+  const auth = getAuth(app);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const provider = new GoogleAuthProvider();
+  const signUpWithGoogle = () => {
+    signInWithPopup(auth, provider)
+  }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData); 
-    setFormData({
-        email: "",
-        password: ""
-    });
+  
+    try {
+      const data = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      if (data.user) {
+        alert("User Added to Firebase!");
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Firebase Auth Error:", error.code, error.message);
+  
+      if (error.code === "auth/email-already-in-use") {
+        alert("This email is already registered. Please log in instead.");
+        navigate("/login"); // Redirect user to the login page
+      } else if (error.code === "auth/invalid-email") {
+        alert("Invalid email format. Please enter a valid email.");
+      } else if (error.code === "auth/weak-password") {
+        alert("Weak password. Please enter at least 6 characters.");
+      } else {
+        alert(`Error: ${error.message}`);
+      }
+    }
+  
+    setFormData({ email: "", password: "" });
   };
 
   return (
@@ -63,7 +91,8 @@ const SignUp = () => {
           {/* Google Sign Up Button */}
           <button
             type="button"
-            className="flex justify-center items-center gap-2 text-gray-500  px-4 py-2"
+            className="flex justify-center items-center gap-2 text-gray-500  px-4 py-2 cursor-pointer"
+            onClick={signUpWithGoogle}
           >
             <p>Sign Up with Google</p>
             <FaGoogle />
